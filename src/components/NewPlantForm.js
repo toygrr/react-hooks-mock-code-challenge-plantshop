@@ -8,7 +8,6 @@ function NewPlantForm({ handleSubmit }) {
     price: "",
   })
 
-
   //handle values from form(values) and put them in the right places within our state object
   function handleOnChange(e) {
     const name = e.target.name
@@ -19,7 +18,6 @@ function NewPlantForm({ handleSubmit }) {
   //why do we need this?
   function handleHandlerHandle(e) {
     e.preventDefault()
-    handleSubmit(newPlant)
 
     fetch("http://localhost:6001/plants", {
       method: "POST",
@@ -29,26 +27,29 @@ function NewPlantForm({ handleSubmit }) {
       body: JSON.stringify(newPlant),
     })
       .then((r) => r.json())
-      .then((data) => console.log(data))
+      .then((data) => handleSubmit(data))
   }
 
   return (
     <div className="new-plant-form">
       <h2>New Plant</h2>
-      <form onChange={handleOnChange} onSubmit={handleHandlerHandle}>
+      <form onSubmit={handleHandlerHandle}>
         <input
+          onChange={handleOnChange}
           type="text"
           value={newPlant.name}
           name="name"
           placeholder="Plant name"
         />
         <input
+          onChange={handleOnChange}
           type="text"
           value={newPlant.image}
           name="image"
           placeholder="Image URL"
         />
         <input
+          onChange={handleOnChange}
           type="number"
           value={newPlant.price}
           name="price"
